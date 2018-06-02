@@ -17,12 +17,12 @@ io.on("connection", socket => {
 
   socket.on("createMessage", message => {
     console.log("Create Message", message);
-  });
-
-  socket.emit("newMessage", {
-    from: "John",
-    text: "See you later",
-    createdAt: 123
+    // Emits to every single connection
+    io.emit("newMessage", {
+      from: "John",
+      text: "See you later",
+      createdAt: new Date().getTime()
+    });
   });
 
   socket.on("disconnect", () => {
