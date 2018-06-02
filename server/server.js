@@ -18,11 +18,7 @@ io.on("connection", socket => {
   socket.on("createMessage", message => {
     console.log("Create Message", message);
     // Emits to every single connection
-    io.emit("newMessage", {
-      from: "John",
-      text: "See you later",
-      createdAt: new Date().getTime()
-    });
+    io.emit("newMessage", message);
   });
 
   socket.on("disconnect", () => {
