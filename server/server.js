@@ -22,14 +22,14 @@ io.on("connection", socket => {
     generateMessage("Admin", "New user has joined the chat.")
   );
 
-  socket.on("createMessage", message => {
-    console.log("Create Message", message);
+  socket.on("createMessage", (message, callback) => {
     // Emits to every single connection
-    io.emit("newMessage", message);
-    socket.broadcast.emit(
+    io.emit("newMessage", generateMessage(message.from, message.text));
+    /*socket.broadcast.emit(
       "newMessage",
       generateMessage(message.from, message.text)
-    );
+    );*/
+    callback("This is from the server");
   });
 
   socket.on("disconnect", () => {
