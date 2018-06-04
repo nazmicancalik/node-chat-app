@@ -17,6 +17,8 @@ app.use(express.static(publicPath));
 io.on("connection", socket => {
   console.log("New user connected");
   socket.emit("newMessage", generateMessage("Admin", "Welcome to the chat!"));
+
+  // Emits everyone exepct itself.
   socket.broadcast.emit(
     "newMessage",
     generateMessage("Admin", "New user has joined the chat.")
@@ -25,10 +27,6 @@ io.on("connection", socket => {
   socket.on("createMessage", (message, callback) => {
     // Emits to every single connection
     io.emit("newMessage", generateMessage(message.from, message.text));
-    /*socket.broadcast.emit(
-      "newMessage",
-      generateMessage(message.from, message.text)
-    );*/
     callback("This is from the server");
   });
 
